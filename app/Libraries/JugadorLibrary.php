@@ -2,23 +2,21 @@
 
 namespace App\Libraries;
 
-use App\Models\Equip;
+use App\Models\Jugador;
 
-class EquipLibrary
+class JugadorLibrary
 {
     public function index()
     {
-        return Equip::all();
+        return Jugador::all();
     }
 
     public function show($id)
     {
         try {
 
-            return Equip::
-                with('club')->
-                with('club.ciutat')->
-                with('plantilla')->
+            return Jugador::
+                with('equip')->
                 find($id);
         } catch (\Throwable $th) {
 
@@ -28,16 +26,17 @@ class EquipLibrary
 
     public function store($payload)
     {
-        return Equip::create($payload);
+        return Jugador::create($payload);
     }
 
     public function update($id, $payload)
     {
         try {
-            $equip = Equip::find($id);
+            $equip = Jugador::find($id);
 
             $equip->nom = $payload['nom'];
-            $equip->id_club = $payload['id_club'];
+            $equip->cognoms = $payload['cognoms'];
+            $equip->data_naixement = $payload['data_naixement'];
 
             $equip->save();
 
@@ -53,7 +52,7 @@ class EquipLibrary
     {
         try {
 
-            $equip = Equip::find($id);
+            $equip = Jugador::find($id);
             $equip->destroy($id);
 
             return $equip;

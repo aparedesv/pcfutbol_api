@@ -18,3 +18,9 @@ $router->get('/equips/{id}', 'Api\EquipApiController@show');
 $router->post('/equips', 'Api\EquipApiController@store');
 $router->put('/equips/{id}', 'Api\EquipApiController@update');
 $router->delete('/equips/{id}', 'Api\EquipApiController@destroy');
+// jugadors
+$router->get('/jugadors', 'Api\JugadorApiController@index');
+$router->get('/jugadors/{id}', 'Api\JugadorApiController@show');
+$router->post('/jugadors', 'Api\JugadorApiController@store');
+$router->put('/jugadors/{id}', 'Api\JugadorApiController@update');
+$router->delete('/jugadors/{id}', 'Api\JugadorApiController@destroy');

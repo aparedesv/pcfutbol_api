@@ -11,10 +11,10 @@ class Equip extends Model
         'id_club',
     ];
 
-    /* public function plantilla()
+    public function plantilla()
     {
-        return $this->hasMany(Plantilla::class, 'id_ciutat', 'id');
-    } */
+        return $this->belongsToMany(Jugador::class, 'plantilles', 'id_equip', 'id_jugador');
+    }
 
     public function club()
     {
