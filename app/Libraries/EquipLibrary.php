@@ -2,7 +2,11 @@
 
 namespace App\Libraries;
 
+use Carbon\Carbon;
+use Faker\Factory;
 use App\Models\Equip;
+use App\Models\Jugador;
+use App\Models\Plantilla;
 
 class EquipLibrary
 {
@@ -28,7 +32,11 @@ class EquipLibrary
 
     public function store($payload)
     {
-        return Equip::create($payload);
+        $equip = Equip::create($payload);
+
+        $this->_novaPlantilla($equip);
+
+        return $equip;
     }
 
     public function update($id, $payload)
@@ -63,5 +71,37 @@ class EquipLibrary
             return NULL;
         }
 
+    }
+
+    private function _novaPlantilla($equip)
+    {
+        $faker = Factory::create();
+
+        for($i = 0; $i < env('NUM_JUGADORS_NOVA_PLANTILLA'); $i++)
+        {
+            $jugador = Jugador::create([
+
+                'nom' => $faker->firstNameMale(),
+                'cognoms' => $faker->lastName(),
+                'data_naixement' => $this->_dataNaixement($faker)
+            ]);
+
+            Plantilla::create([
+                'id_jugador' => $jugador->id,
+                'id_equip' => $equip->id,
+            ]);
+
+        }
+
+    }
+
+    private function _dataNaixement($faker)
+    {
+        $data_naixement = $faker->dateTimeBetween(
+            Carbon::now()->subYears(env('EDAD_MAXIMA_NOU_JUGADOR')),
+            Carbon::now()->subYears(env('EDAD_MINIMA_NOU_JUGADOR'))
+        );
+
+        return Carbon::parse($data_naixement)->format('Y-m-d');
     }
 }
