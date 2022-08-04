@@ -2,21 +2,23 @@
 
 namespace App\Libraries;
 
-use App\Models\Ciutat;
+use App\Models\Equip;
 
-class CiutatLibrary
+class EquipLibrary
 {
     public function index()
     {
-        return Ciutat::all();
+        return Equip::all();
     }
 
     public function show($id)
     {
         try {
 
-            return Ciutat::with('clubs')->find($id);
-
+            return Equip::
+                with('club')->
+                with('club.ciutat')->
+                find($id);
         } catch (\Throwable $th) {
 
             return NULL;
@@ -25,22 +27,20 @@ class CiutatLibrary
 
     public function store($payload)
     {
-        return Ciutat::create($payload);
+        return Equip::create($payload);
     }
 
     public function update($id, $payload)
     {
         try {
+            $equip = Equip::find($id);
 
-            $ciutat = Ciutat::find($id);
+            $equip->nom = $payload['nom'];
+            $equip->id_club = $payload['id_club'];
 
-            $ciutat->nom = $payload['nom'];
-            $ciutat->latitud = $payload['latitud'];
-            $ciutat->longitud = $payload['longitud'];
+            $equip->save();
 
-            $ciutat->save();
-
-            return $ciutat;
+            return $equip;
 
         } catch (\Throwable $th) {
 
@@ -52,14 +52,15 @@ class CiutatLibrary
     {
         try {
 
-            $ciutat = Ciutat::find($id);
-            $ciutat->destroy($id);
+            $equip = Equip::find($id);
+            $equip->destroy($id);
 
-            return $ciutat;
+            return $equip;
 
         } catch (\Throwable $th) {
 
             return NULL;
         }
+
     }
 }

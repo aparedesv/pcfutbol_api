@@ -17,4 +17,18 @@ class PcfutbolApiController extends Controller
 
         return $response;
     }
+
+    public function checkIfExist($response)
+    {
+        if($response <> NULL)
+        {
+            return response($response);
+        }
+        else
+        {
+            return response()->json([
+                'message' => 'Record not found.'
+            ], 404);
+        }
+    }
 }

@@ -3,53 +3,51 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use App\Libraries\CiutatLibrary;
+use App\Libraries\EquipLibrary;
 
-class CiutatApiController extends PcfutbolApiController
+class EquipApiController extends PcfutbolApiController
 {
     public function __construct()
     {
-        $this->ciutatLibrary = new CiutatLibrary;
+        $this->equipLibrary = new EquipLibrary;
     }
 
     public function index()
     {
-        return $this->ciutatLibrary->index();
+        return $this->equipLibrary->index();
     }
 
     public function show($id)
     {
-        return $this->checkIfExist($this->ciutatLibrary->show($id));
+        return $this->checkIfExist($this->equipLibrary->show($id));
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
             'nom' => 'required|max:100',
-            'longitud' => 'required',
-            'latitud' => 'required'
+            'id_club' => 'required|exists:clubs,id',
         ]);
 
         $payload = $this->payload($request->request);
 
-        return $this->ciutatLibrary->store($payload);
+        return $this->equipLibrary->store($payload);
     }
 
     public function update($id, Request $request)
     {
         $this->validate($request, [
             'nom' => 'required|max:100',
-            'longitud' => 'required',
-            'latitud' => 'required'
+            'id_club' => 'required|exists:clubs,id',
         ]);
 
         $payload = $this->payload($request->request);
 
-        return $this->checkIfExist($this->ciutatLibrary->update($id, $payload));
+        return $this->checkIfExist($this->equipLibrary->update($id, $payload));
     }
 
     public function destroy($id)
     {
-        return $this->checkIfExist($this->ciutatLibrary->destroy($id));
+        return $this->checkIfExist($this->equipLibrary->destroy($id));
     }
 }

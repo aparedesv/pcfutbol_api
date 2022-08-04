@@ -12,8 +12,8 @@ class Ciutat extends Model
         'longitud',
     ];
 
-    public function club()
+    public function clubs()
     {
-        return $this->hasMany(Club::class, 'id', 'id_ciutat');
+        return $this->hasMany(Club::class, 'id_ciutat', 'id');
     }
 }
