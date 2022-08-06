@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ciutat extends Model
 {
+    protected $table = 'ciutats';
+
     protected $fillable = [
         'nom',
         'latitud',

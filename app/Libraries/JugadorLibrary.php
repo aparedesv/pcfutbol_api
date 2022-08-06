@@ -17,6 +17,8 @@ class JugadorLibrary
 
             return Jugador::
                 with('equip')->
+                with('posicions')->
+                with('atributs')->
                 find($id);
         } catch (\Throwable $th) {
 
