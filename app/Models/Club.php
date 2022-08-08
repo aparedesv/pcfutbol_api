@@ -13,6 +13,11 @@ class Club extends Model
         'id_ciutat',
     ];
 
+    public function camps()
+    {
+        return $this->hasMany(Camp::class, 'id_club', 'id');
+    }
+
     public function ciutat()
     {
         return $this->belongsTo(Ciutat::class, 'id_ciutat', 'id');

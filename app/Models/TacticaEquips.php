@@ -4,19 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Plantilla extends Model
+class TacticaEquip extends Model
 {
-    protected $table = 'plantilles';
+    protected $table = 'tactica_equips';
 
     protected $fillable = [
-        'id_jugador',
-        'id_equip',
-        'ordre'
+        'id_tactica',
+        'id_equip'
     ];
 
-    public function jugador()
+    public function tactica()
     {
-        return $this->belongsTo(Jugador::class, 'id_jugador', 'id');
+        return $this->belongsTo(Tactica::class, 'id_tactica', 'id');
     }
 
     public function equip()
