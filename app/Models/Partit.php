@@ -11,6 +11,7 @@ class Partit extends Model
     protected $fillable = [
         'nom',
         'id_competicio',
+        'jornada',
         'id_equip_local',
         'id_equip_visitant',
         'id_camp',

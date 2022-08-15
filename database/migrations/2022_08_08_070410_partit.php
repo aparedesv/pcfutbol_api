@@ -18,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom', 50)->nullable();
             $table->unsignedBigInteger('id_competicio');
+            $table->unsignedTinyInteger('jornada')->nullable();
             $table->unsignedBigInteger('id_equip_local');
             $table->unsignedBigInteger('id_equip_visitant');
             $table->unsignedBigInteger('id_camp');

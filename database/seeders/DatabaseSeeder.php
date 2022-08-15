@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             GrupPosicionsSeeder::class,
             PosicionsSeeder::class,
             AtributsSeeder::class,
+            TemporadesSeeder::class,
+            TipusCompeticioSeeder::class,
         ]);
     }
 }
