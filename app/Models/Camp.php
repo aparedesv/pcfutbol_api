@@ -4,19 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Equip extends Model
+class Camp extends Model
 {
-    protected $table = 'equips';
+    protected $table = 'camps';
 
     protected $fillable = [
         'nom',
         'id_club',
+        'capacitat',
     ];
-
-    public function plantilla()
-    {
-        return $this->belongsToMany(Jugador::class, 'plantilles', 'id_equip', 'id_jugador');
-    }
 
     public function club()
     {

@@ -19,7 +19,7 @@ class CiutatApiController extends PcfutbolApiController
 
     public function show($id)
     {
-        return $this->checkIfExist($this->ciutatLibrary->show($id));
+        return self::checkIfExist($this->ciutatLibrary->show($id));
     }
 
     public function store(Request $request)
@@ -45,11 +45,11 @@ class CiutatApiController extends PcfutbolApiController
 
         $payload = $this->payload($request->request);
 
-        return $this->checkIfExist($this->ciutatLibrary->update($id, $payload));
+        return self::checkIfExist($this->ciutatLibrary->update($id, $payload));
     }
 
     public function destroy($id)
     {
-        return $this->checkIfExist($this->ciutatLibrary->destroy($id));
+        return self::checkIfExist($this->ciutatLibrary->destroy($id));
     }
 }

@@ -13,24 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('plantilles', function (Blueprint $table) {
+        Schema::create('posicions', function (Blueprint $table) {
 
             $table->id();
-            $table->unsignedBigInteger('id_equip');
-            $table->unsignedBigInteger('id_jugador');
-            $table->unsignedTinyInteger('ordre')->nullable();
+            $table->char('nom', 3);
+            $table->string('descripcio', 100)->nullable();
+            $table->unsignedBigInteger('id_grup');
 
             $table->timestamps();
 
-            $table->foreign('id_equip')
+            $table->foreign('id_grup')
                 ->references('id')
-                ->on('equips')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->foreign('id_jugador')
-                ->references('id')
-                ->on('jugadors')
+                ->on('grup_posicions')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
@@ -44,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::drop('plantilles');
+        Schema::drop('posicions');
     }
 };
