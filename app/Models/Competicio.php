@@ -26,6 +26,6 @@ class Competicio extends Model
 
     public function partits()
     {
-        return $this->hasMany(Partit::class, 'id_competicio', 'id');
+        return $this->hasMany(Partit::class, 'id_competicio', 'id')->orderBy('jornada');
     }
 }

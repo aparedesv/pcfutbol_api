@@ -8,7 +8,7 @@ class PartitLibrary
 {
     public function index()
     {
-        return Partit::all();
+        return Partit::orderBy('id_competicio')->orderBy('jornada')->get();
     }
 
     public function show($id)

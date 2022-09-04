@@ -18,7 +18,7 @@ class CompeticioLibrary
     {
         try {
 
-            return Competicio::with('clubs')->find($id);
+            return Competicio::with('partits')->find($id);
 
         } catch (\Throwable $th) {
 

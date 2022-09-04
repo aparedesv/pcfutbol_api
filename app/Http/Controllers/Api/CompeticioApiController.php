@@ -42,7 +42,6 @@ class CompeticioApiController extends PcfutbolApiController
             'nom' => 'required|max:50',
             'id_tipus' => 'required',
             'id_temporada' => 'required',
-            'id_equips' => 'required|array'
         ]);
 
         $payload = $this->payload($request->request);
