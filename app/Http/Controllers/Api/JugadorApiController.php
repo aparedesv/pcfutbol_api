@@ -19,7 +19,7 @@ class JugadorApiController extends PcfutbolApiController
 
     public function show($id)
     {
-        return $this->checkIfExist($this->jugadorLibrary->show($id));
+        return self::checkIfExist($this->jugadorLibrary->show($id));
     }
 
     public function store(Request $request)
@@ -45,11 +45,11 @@ class JugadorApiController extends PcfutbolApiController
 
         $payload = $this->payload($request->request);
 
-        return $this->checkIfExist($this->jugadorLibrary->update($id, $payload));
+        return self::checkIfExist($this->jugadorLibrary->update($id, $payload));
     }
 
     public function destroy($id)
     {
-        return $this->checkIfExist($this->jugadorLibrary->destroy($id));
+        return self::checkIfExist($this->jugadorLibrary->destroy($id));
     }
 }

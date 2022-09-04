@@ -38,7 +38,7 @@ class EquipLibrary
     {
         $equip = Equip::create($payload);
 
-        $this->_novaPlantilla($equip);
+        self::_novaPlantilla($equip);
 
         return $equip;
     }
@@ -87,7 +87,7 @@ class EquipLibrary
 
                 'nom' => $faker->firstNameMale(),
                 'cognoms' => $faker->lastName(),
-                'data_naixement' => $this->_dataNaixement($faker)
+                'data_naixement' => self::_dataNaixement($faker)
             ]);
 
             Plantilla::create([
@@ -97,25 +97,25 @@ class EquipLibrary
 
             if ($i < 2)
             {
-                $this->_posicionsJugador($jugador, env('POSICIO_PORTER'));
+                self::_posicionsJugador($jugador, env('POSICIO_PORTER'));
             }
 
             if ($i > 1 && $i < 8)
             {
-                $this->_posicionsJugador($jugador, env('POSICIO_DEFENSA_PRIMER'), env('POSICIO_DEFENSA_ULTIM'));
+                self::_posicionsJugador($jugador, env('POSICIO_DEFENSA_PRIMER'), env('POSICIO_DEFENSA_ULTIM'));
             }
 
             if ($i > 7 && $i < 14)
             {
-                $this->_posicionsJugador($jugador, env('POSICIO_MIG_PRIMER'), env('POSICIO_MIG_ULTIM'));
+                self::_posicionsJugador($jugador, env('POSICIO_MIG_PRIMER'), env('POSICIO_MIG_ULTIM'));
             }
 
             if ($i > 13 && $i < 20)
             {
-                $this->_posicionsJugador($jugador, env('POSICIO_DAVANTER_PRIMER'), env('POSICIO_DAVANTER_ULTIM'));
+                self::_posicionsJugador($jugador, env('POSICIO_DAVANTER_PRIMER'), env('POSICIO_DAVANTER_ULTIM'));
             }
 
-            $this->_atributsJugador($jugador);
+            self::_atributsJugador($jugador);
         }
 
     }

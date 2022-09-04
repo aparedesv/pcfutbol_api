@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('jornada')->nullable();
             $table->unsignedBigInteger('id_equip_local');
             $table->unsignedBigInteger('id_equip_visitant');
-            $table->unsignedBigInteger('id_camp');
+            $table->unsignedBigInteger('id_camp')->nullable();
             $table->dateTime('inici');
 
             $table->timestamps();

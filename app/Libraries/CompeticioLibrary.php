@@ -39,7 +39,7 @@ class CompeticioLibrary
 
         $competicio = Competicio::create($payload);
 
-        $this->_novaCompeticio($competicio, $payload['id_equips']);
+        self::_novaCompeticio($competicio, $payload['id_equips']);
 
         return $competicio;
     }
@@ -81,84 +81,75 @@ class CompeticioLibrary
 
     private function _novaCompeticio($competicio, $idEquips)
     {
-        $dataIniciPretemporada = new Carbon($competicio->temporada->inici);
-        // $dataIniciTemporada = Carbon::parse($dataIniciPretemporada->addMonths(1))->getTranslatedDayName();
-        $dataIniciTemporada = Carbon::parse($dataIniciPretemporada->addMonths(1))->format('Y-m-d');
-
         if($competicio->tipus->lliga == TRUE)
         {
-            $this->_novaCompeticioPartitsLliga($competicio, $idEquips, $dataIniciTemporada);
+            self::_novaCompeticioPartitsLliga($competicio, $idEquips);
         }
-
     }
 
-    private function _novaCompeticioPartitsLliga($competicio, $idEquips, $dataIniciTemporada)
+    private function _novaCompeticioPartitsLliga($competicio, $idEquips)
     {
-        $equips = [];
-        $partits = [];
+        app('db')->transaction(function() use(&$competicio, &$idEquips) {
 
-        for($ii = 0; $ii < count($idEquips); $ii++)
-        {
-
-            for($aa = 1; $aa < count($idEquips); $aa++)
+            for($round = 0; $round < count($idEquips) - 1; ++$round)
             {
-                $idEquipLocal = $idEquips[$ii];
-                $idEquipVisitant = $idEquips[$aa];
-
-                if(!in_array($idEquipLocal, $equips) && $idEquipLocal <> $idEquipVisitant)
-                {
-                    $partit = [$idEquipLocal, $idEquipVisitant];
-                    array_push($partits, $partit);
-                    /* Partit::create([
-                        'id_competicio' => $competicio->id,
-                        'jornada' => $jornada,
-                        'id_equip_local' => $idEquipLocal,
-                        'id_equip_visitant' => $idEquipVisitant,
-                        'id_camp' => 1,
-                        'inici' => new Carbon($dataIniciTemporada),
-                    ]); */
-                }
-
-                if($ii == 0 && count($equips) == 0)
-                {
-                    $partit = [$idEquipVisitant, $idEquipLocal];
-                    array_push($partits, $partit);
-                    /* Partit::create([
-                        'id_competicio' => $competicio->id,
-                        'jornada' => $jornada,
-                        'id_equip_local' => $idEquipVisitant,
-                        'id_equip_visitant' => $idEquipLocal,
-                        'id_camp' => 1,
-                        'inici' => new Carbon($dataIniciTemporada),
-                    ]); */
-                }
-
+                self::_setRoundPairs($idEquips, $round + 1, $competicio);
+                $idEquips = self::_rotateCompetitors($idEquips);
             }
+        });
+    }
 
-            array_push($equips, $idEquipLocal);
-        }
+    private function _setRoundPairs($teams, $round, $competicio)
+    {
+        // anada
+        $dataIniciPretemporada = new Carbon($competicio->temporada->inici);
+        $dataIniciTemporada = Carbon::parse($dataIniciPretemporada->addMonths(1));
+        $dataPartitAnada = $dataIniciTemporada->addWeeks($round - 1);
 
-        $numeroJornades = ($competicio->tipus->numero_equips - 1) * 2;
-
-        $jornada = 1;
-        $cont = 1;
-        foreach ($partits as $partit)
+        for($i = 0 ; $i < count($teams)/2 ; ++$i)
         {
-            /* if($cont > 9)
-            {
-                $jornada++;
-            } */
+            $opponent = count($teams) - 1 - $i;
 
             Partit::create([
                 'id_competicio' => $competicio->id,
-                'jornada' => 1,
-                'id_equip_local' => $partit[0],
-                'id_equip_visitant' => $partit[1],
-                'id_camp' => 1,
-                'inici' => new Carbon($dataIniciTemporada),
+                'jornada' => $round,
+                'id_equip_local' => $teams[$i],
+                'id_equip_visitant' => $teams[$opponent],
+                'inici' => $dataPartitAnada,
             ]);
-
-            $cont++;
         }
+
+        // tornada
+        $dataIniciPretemporada = new Carbon($competicio->temporada->inici);
+        $dataIniciTemporada = Carbon::parse($dataIniciPretemporada->addMonths(1));
+        $dataPartitTornada = $dataIniciTemporada->addWeeks(($round - 1) + (count($teams) - 1));
+
+        for($i = 0 ; $i < count($teams)/2 ; ++$i)
+        {
+            $opponent = count($teams) - 1 - $i;
+
+            Partit::create([
+                'id_competicio' => $competicio->id,
+                'jornada' => $round + (count($teams) - 1),
+                'id_equip_local' => $teams[$opponent],
+                'id_equip_visitant' => $teams[$i],
+                'inici' => $dataPartitTornada,
+            ]);
+        }
+    }
+
+    private function _rotateCompetitors($teams)
+    {
+        $result = $teams;
+
+        $tmp = $result[ count($result) - 1 ];
+        for($i = count($result)-1; $i > 1; --$i)
+        {
+            $result[$i] = $result[$i-1];
+        }
+        $result[1] = $tmp;
+
+        return $result;
+
     }
 }

@@ -19,7 +19,7 @@ class CompeticioApiController extends PcfutbolApiController
 
     public function show($id)
     {
-        return $this->checkIfExist($this->competicioLibrary->show($id));
+        return self::checkIfExist($this->competicioLibrary->show($id));
     }
 
     public function store(Request $request)
@@ -47,11 +47,11 @@ class CompeticioApiController extends PcfutbolApiController
 
         $payload = $this->payload($request->request);
 
-        return $this->checkIfExist($this->competicioLibrary->update($id, $payload));
+        return self::checkIfExist($this->competicioLibrary->update($id, $payload));
     }
 
     public function destroy($id)
     {
-        return $this->checkIfExist($this->competicioLibrary->destroy($id));
+        return self::checkIfExist($this->competicioLibrary->destroy($id));
     }
 }

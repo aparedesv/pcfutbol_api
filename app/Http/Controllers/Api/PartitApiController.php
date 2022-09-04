@@ -18,6 +18,6 @@ class PartitApiController extends PcfutbolApiController
 
     public function show($id)
     {
-        return $this->checkIfExist($this->partitLibrary->show($id));
+        return self::checkIfExist($this->partitLibrary->show($id));
     }
 }
