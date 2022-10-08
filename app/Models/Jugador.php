@@ -23,6 +23,16 @@ class Jugador extends Model
 
     public function targetes()
     {
+        return $this->hasOne(JugadorTargeta::class, 'id_jugador', 'id');
+    }
+
+    public function lesio()
+    {
+        return $this->hasOne(JugadorLesions::class, 'id_jugador', 'id');
+    }
+
+    public function targetesPartit()
+    {
         return $this->hasMany(PartitTargeta::class, 'id_jugador', 'id');
     }
 
@@ -43,7 +53,7 @@ class Jugador extends Model
 
     public function getMitjaAttribute()
     {
-        $atributs = JugadorAtributs::where('id_jugador', $this->attributes['id'])->get();
+        $atributs = JugadorAtribut::where('id_jugador', $this->attributes['id'])->get();
         $valors = [];
 
         foreach ($atributs as $atribut)

@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JugadorPosicions extends Model
+class JugadorAtribut extends Model
 {
-    protected $table = 'jugador_posicions';
+    protected $table = 'jugador_atributs';
 
     protected $fillable = [
         'id_jugador',
-        'id_posicio'
+        'id_atribut',
+        'valor'
     ];
 
     public function jugador()
@@ -18,8 +19,8 @@ class JugadorPosicions extends Model
         return $this->belongsTo(Jugador::class, 'id_jugador', 'id');
     }
 
-    public function posicio()
+    public function atribut()
     {
-        return $this->belongsTo(Posicio::class, 'id_posicio', 'id');
+        return $this->belongsTo(Atribut::class, 'id_atribut', 'id');
     }
 }

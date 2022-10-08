@@ -5,6 +5,7 @@ namespace App\Libraries;
 use Carbon\Carbon;
 use App\Models\Partit;
 use App\Models\Competicio;
+use App\Models\PartitActa;
 use App\Models\TipusCompeticio;
 
 class CompeticioLibrary
@@ -103,38 +104,49 @@ class CompeticioLibrary
     {
         // anada
         $dataIniciPretemporada = new Carbon($competicio->temporada->inici);
+
         $dataIniciTemporada = Carbon::parse($dataIniciPretemporada->addMonths(1));
         $dataPartitAnada = $dataIniciTemporada->addWeeks($round - 1);
 
-        for($i = 0 ; $i < count($teams)/2 ; ++$i)
-        {
-            $opponent = count($teams) - 1 - $i;
-
-            Partit::create([
-                'id_competicio' => $competicio->id,
-                'jornada' => $round,
-                'id_equip_local' => $teams[$i],
-                'id_equip_visitant' => $teams[$opponent],
-                'inici' => $dataPartitAnada,
-            ]);
-        }
-
-        // tornada
-        $dataIniciPretemporada = new Carbon($competicio->temporada->inici);
-        $dataIniciTemporada = Carbon::parse($dataIniciPretemporada->addMonths(1));
+        $dataIniciTemporada = Carbon::parse($dataIniciPretemporada);
         $dataPartitTornada = $dataIniciTemporada->addWeeks(($round - 1) + (count($teams) - 1));
 
         for($i = 0 ; $i < count($teams)/2 ; ++$i)
         {
             $opponent = count($teams) - 1 - $i;
 
-            Partit::create([
+            $local = $teams[$i];
+            $visitant = $teams[$opponent];
+
+            if($round % 2 == 0)
+            {
+                $local = $visitant;
+                $visitant = $teams[$i];
+            }
+
+            $partitPrimeraVolta = Partit::create([
+                'id_competicio' => $competicio->id,
+                'jornada' => $round,
+                'id_equip_local' => $local,
+                'id_equip_visitant' => $visitant,
+                'inici' => $dataPartitAnada,
+            ]);
+
+            PartitActa::create([
+               'id_partit' => $partitPrimeraVolta->id
+            ]);
+
+            $partitSegonaVolta = Partit::create([
                 'id_competicio' => $competicio->id,
                 'jornada' => $round + (count($teams) - 1),
-                'id_equip_local' => $teams[$opponent],
-                'id_equip_visitant' => $teams[$i],
+                'id_equip_local' => $visitant,
+                'id_equip_visitant' => $local,
                 'inici' => $dataPartitTornada,
             ]);
+
+            PartitActa::create([
+                'id_partit' => $partitSegonaVolta->id
+             ]);
         }
     }
 

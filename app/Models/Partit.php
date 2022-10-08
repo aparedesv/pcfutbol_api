@@ -18,14 +18,19 @@ class Partit extends Model
         'inici',
     ];
 
+    public function acta()
+    {
+        return $this->hasOne(PartitActa::class, 'id_partit', 'id');
+    }
+
     public function equipLocal()
     {
-        return $this->belongsTo(Equips::class, 'id_equip_local', 'id');
+        return $this->belongsTo(Equip::class, 'id_equip_local', 'id');
     }
 
     public function equipVisitant()
     {
-        return $this->belongsTo(Equips::class, 'id_equip_visitant', 'id');
+        return $this->belongsTo(Equip::class, 'id_equip_visitant', 'id');
     }
 
     public function jugadors()

@@ -14,11 +14,6 @@ class Plantilla extends Model
         'ordre'
     ];
 
-    public function jugador()
-    {
-        return $this->belongsTo(Jugador::class, 'id_jugador', 'id');
-    }
-
     public function equip()
     {
         return $this->belongsTo(Equip::class, 'id_equip', 'id');

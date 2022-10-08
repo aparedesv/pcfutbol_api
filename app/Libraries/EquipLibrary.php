@@ -7,9 +7,9 @@ use Faker\Factory;
 use App\Models\Equip;
 use App\Models\Atribut;
 use App\Models\Jugador;
-use App\Models\JugadorAtributs;
+use App\Models\JugadorAtribut;
 use App\Models\Plantilla;
-use App\Models\JugadorPosicions;
+use App\Models\JugadorPosicio;
 
 class EquipLibrary
 {
@@ -137,7 +137,7 @@ class EquipLibrary
             $posicioPrincipalId = rand($posicioInicial, $posicioFinal);
             $posicions = [$posicioPrincipalId];
 
-            JugadorPosicions::create([
+            JugadorPosicio::create([
                 'id_jugador' => $jugador->id,
                 'id_posicio' => $posicioPrincipalId
             ]);
@@ -147,7 +147,7 @@ class EquipLibrary
                 $posicioId = rand($posicioInicial, $posicioFinal);
                 if(in_array($posicioId, $posicions) == FALSE)
                 {
-                    JugadorPosicions::create([
+                    JugadorPosicio::create([
                         'id_jugador' => $jugador->id,
                         'id_posicio' => $posicioId
                     ]);
@@ -156,7 +156,7 @@ class EquipLibrary
         }
         else
         {
-            JugadorPosicions::create([
+            JugadorPosicio::create([
                 'id_jugador' => $jugador->id,
                 'id_posicio' => $posicioInicial,
             ]);
@@ -169,7 +169,7 @@ class EquipLibrary
 
         foreach ($atributs as $atribut)
         {
-            JugadorAtributs::create([
+            JugadorAtribut::create([
                 'id_jugador' => $jugador->id,
                 'id_atribut' => $atribut->id,
                 'valor' => rand(35, 65)

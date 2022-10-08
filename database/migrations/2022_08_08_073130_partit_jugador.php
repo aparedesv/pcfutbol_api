@@ -19,8 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_partit');
             $table->unsignedBigInteger('id_jugador');
             $table->unsignedBigInteger('id_posicio');
-            $table->unsignedTinyInteger('minut_inici_posicio');
-            $table->unsignedTinyInteger('minut_final_posicio');
+            $table->unsignedTinyInteger('minut_inici_posicio')->nullable();
+            $table->unsignedTinyInteger('minut_final_posicio')->nullable();
 
             $table->timestamps();
 
