@@ -79,44 +79,48 @@ class EquipLibrary
 
     private function _novaPlantilla($equip)
     {
-        $faker = Factory::create();
+        app('db')->transaction(function() use(&$equip) {
 
-        for($i = 0; $i < env('NUM_JUGADORS_NOVA_PLANTILLA'); $i++)
-        {
-            $jugador = Jugador::create([
+            $faker = Factory::create();
 
-                'nom' => $faker->firstNameMale(),
-                'cognoms' => $faker->lastName(),
-                'data_naixement' => self::_dataNaixement($faker)
-            ]);
-
-            Plantilla::create([
-                'id_jugador' => $jugador->id,
-                'id_equip' => $equip->id,
-            ]);
-
-            if ($i < 2)
+            for($i = 0; $i < env('NUM_JUGADORS_NOVA_PLANTILLA'); $i++)
             {
-                self::_posicionsJugador($jugador, env('POSICIO_PORTER'));
-            }
+                $jugador = Jugador::create([
 
-            if ($i > 1 && $i < 8)
-            {
-                self::_posicionsJugador($jugador, env('POSICIO_DEFENSA_PRIMER'), env('POSICIO_DEFENSA_ULTIM'));
-            }
+                    'nom' => $faker->firstNameMale(),
+                    'cognoms' => $faker->lastName(),
+                    'data_naixement' => self::_dataNaixement($faker)
+                ]);
 
-            if ($i > 7 && $i < 14)
-            {
-                self::_posicionsJugador($jugador, env('POSICIO_MIG_PRIMER'), env('POSICIO_MIG_ULTIM'));
-            }
+                Plantilla::create([
+                    'id_jugador' => $jugador->id,
+                    'id_equip' => $equip->id,
+                    'ordre' => $i + 1
+                ]);
 
-            if ($i > 13 && $i < 20)
-            {
-                self::_posicionsJugador($jugador, env('POSICIO_DAVANTER_PRIMER'), env('POSICIO_DAVANTER_ULTIM'));
-            }
+                if ($i < 2)
+                {
+                    self::_posicionsJugador($jugador, env('POSICIO_PORTER'));
+                }
 
-            self::_atributsJugador($jugador);
-        }
+                if ($i > 1 && $i < 8)
+                {
+                    self::_posicionsJugador($jugador, env('POSICIO_DEFENSA_PRIMER'), env('POSICIO_DEFENSA_ULTIM'));
+                }
+
+                if ($i > 7 && $i < 14)
+                {
+                    self::_posicionsJugador($jugador, env('POSICIO_MIG_PRIMER'), env('POSICIO_MIG_ULTIM'));
+                }
+
+                if ($i > 13 && $i < 20)
+                {
+                    self::_posicionsJugador($jugador, env('POSICIO_DAVANTER_PRIMER'), env('POSICIO_DAVANTER_ULTIM'));
+                }
+
+                self::_atributsJugador($jugador);
+            }
+        });
 
     }
 

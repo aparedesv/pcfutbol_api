@@ -38,7 +38,7 @@ $router->delete('/competicions/{id}', 'Api\CompeticioApiController@destroy');
 // partits
 $router->get('/partits', 'Api\PartitApiController@index');
 $router->get('/partits/{id}', 'Api\PartitApiController@show');
-$router->get('/partits/jugar/{id}/{id_equip}', 'Api\PartitApiController@jugar');
+$router->post('/partits/jugar', 'Api\PartitApiController@jugar');
 $router->post('/partits', 'Api\PartitApiController@store');
 $router->put('/partits/{id}', 'Api\PartitApiController@update');
 

@@ -15,7 +15,7 @@ class Equip extends Model
 
     public function plantilla()
     {
-        return $this->belongsToMany(Jugador::class, 'plantilles', 'id_equip', 'id_jugador');
+        return $this->belongsToMany(Jugador::class, 'plantilles', 'id_equip', 'id_jugador')->orderBy('ordre', 'ASC');
     }
 
     public function club()

@@ -36,8 +36,12 @@ class PartitApiController extends PcfutbolApiController
         return self::checkIfExist($this->partitLibrary->update($id, $payload));
     }
 
-    public function jugar($id, $id_equip)
+    public function jugar(Request $request)
     {
+        $payload = $this->payload($request->request);
+
+        $id = $payload['id'];
+        $id_equip = $payload['id_equip'];
 
         return self::_checkEquip($this->partitLibrary->jugar($id, $id_equip, self::_checkLocal($id, $id_equip)));
     }

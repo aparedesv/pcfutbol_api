@@ -80,6 +80,7 @@ class PartitLibrary
             with('posicions')->
             join('plantilles', 'jugadors.id', '=', 'plantilles.id_jugador')->
             where('plantilles.id_equip', $id_equip)->
+            orderBy('plantilles.ordre', 'ASC')->
             limit(env('NUM_JUGADORS_PARTIT'))
             ->get();
 
@@ -112,6 +113,7 @@ class PartitLibrary
         $alineacio = JugadorTargeta::
             join('plantilles', 'jugador_targetes.id_jugador', '=', 'plantilles.id_jugador')->
             where('plantilles.id_equip', $id_equip)->
+            orderBy('plantilles.ordre', 'ASC')->
             limit(env('NUM_JUGADORS_PARTIT'))->
             get();
 
@@ -129,6 +131,7 @@ class PartitLibrary
         $alineacio = JugadorLesio::
             join('plantilles', 'jugador_lesions.id_jugador', '=', 'plantilles.id_jugador')->
             where('plantilles.id_equip', $id_equip)->
+            orderBy('plantilles.ordre', 'ASC')->
             limit(env('NUM_JUGADORS_PARTIT'))->
             get();
 
@@ -136,7 +139,7 @@ class PartitLibrary
         {
             if($jugador->lesio)
             {
-                throw new Exception('hola');
+                throw new Exception();
             }
         }
     }
