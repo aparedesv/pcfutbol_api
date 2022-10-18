@@ -26,6 +26,7 @@ class EquipLibrary
                 with('club')->
                 with('club.ciutat')->
                 with('plantilla')->
+                with('plantilla.atributs')->
                 with('plantilla.posicions')->
                 find($id);
         } catch (\Throwable $th) {
