@@ -1,0 +1,79 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "PcFutbol API documentació",
+        "description": "documentació generada amb swagger.io",
+        "contact": {
+            "url": "https://www.osonaweb.cat",
+            "email": "info@osonaweb.cat"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "local environment"
+        }
+    ],
+    "paths": {
+        "/ciutats": {
+          "get": {
+            "description": "index ciutats resource",
+            "responses": {
+              "200": {          
+                "description": "list of cities."
+              }
+            }
+          },
+          "post": {
+            "description": "store ciutats resource",
+            "responses": {
+              "200": {          
+                "description": "new city."
+              },
+              "422": {          
+                "description": "validation error"
+              }
+            },
+            "parameters": [
+                {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "example": "aiguafreda"
+                                    },
+                                    "latitud": {
+                                        "type": "number",
+                                        "example": "41.76842"
+                                    },
+                                    "longitud": {
+                                        "type": "number",
+                                        "example": "2.25132"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+          }
+        },
+        "/ciutats/{id}": {
+          "get": {
+            "description": "show ciutats resource",
+            "responses": {
+              "200": {          
+                "description": "city details."
+              }
+            }
+          }
+        }
+      }
+}
+    

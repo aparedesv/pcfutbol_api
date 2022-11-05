@@ -46,5 +46,5 @@ $router->group(['middleware' => 'api.cors'], function () use ($router) {
 
     // jornades
     $router->get('/jornades/{id_competicio}/{num_jornada}', 'Api\JornadaApiController@show');
-
 });
+
