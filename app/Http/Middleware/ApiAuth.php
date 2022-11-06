@@ -27,7 +27,7 @@ class ApiAuth
         {
             return response('Unauthorized.', 401);
         }
-        
+
         return $next($request);
     }
 }
