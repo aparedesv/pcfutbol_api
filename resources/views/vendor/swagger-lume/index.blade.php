@@ -70,6 +70,19 @@
 <script src="{{ swagger_lume_asset('swagger-ui-standalone-preset.js') }}"> </script>
 <script>
     window.onload = function() {
+
+        const DisableTryItOutPlugin = function() {
+            return {
+                statePlugins: {
+                    spec: {
+                        wrapSelectors: {
+                        allowTryItOutFor: () => () => false
+                        }
+                    }
+                }
+            }
+        }
+
         // Build a system
         const ui = SwaggerUIBundle({
             dom_id: '#swagger-ui',
@@ -86,7 +99,8 @@
             ],
 
             plugins: [
-                SwaggerUIBundle.plugins.DownloadUrl
+                SwaggerUIBundle.plugins.DownloadUrl,
+                DisableTryItOutPlugin
             ],
 
             layout: "StandaloneLayout"

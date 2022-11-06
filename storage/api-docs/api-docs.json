@@ -21,7 +21,31 @@
             "description": "index ciutats resource",
             "responses": {
               "200": {          
-                "description": "list of cities."
+                "description": "list of cities.",
+                "content": {
+                  "application/json": {
+                      "schema": {
+                          "type": "array",
+                          "items": {
+                              "type": "object",
+                              "properties": {
+                                "nom": {
+                                    "type": "string",
+                                    "example": "aiguafreda"
+                                },
+                                "latitud": {
+                                    "type": "number",
+                                    "example": "41.76842"
+                                },
+                                "longitud": {
+                                    "type": "number",
+                                    "example": "2.25132"
+                                }
+                              }
+                          }
+                      }
+                  }
+              }
               }
             }
           },
@@ -69,7 +93,116 @@
             "description": "show ciutats resource",
             "responses": {
               "200": {          
-                "description": "city details."
+                "description": "city details.",
+                "content": {
+                  "application/json": {
+                      "schema": {
+                          "type": "object",
+                          "properties": {
+                              "nom": {
+                                  "type": "string",
+                                  "example": "aiguafreda"
+                              },
+                              "latitud": {
+                                  "type": "number",
+                                  "example": "41.76842"
+                              },
+                              "longitud": {
+                                  "type": "number",
+                                  "example": "2.25132"
+                              }
+                          }
+                      }
+                  }
+              }
+              }
+            }
+          },
+          "put": {
+            "description": "update ciutats resource",
+            "responses": {
+              "200": {          
+                "description": "update city.",
+                "content": {
+                  "application/json": {
+                      "schema": {
+                          "type": "object",
+                          "properties": {
+                              "nom": {
+                                  "type": "string",
+                                  "example": "aiguafreda"
+                              },
+                              "latitud": {
+                                  "type": "number",
+                                  "example": "41.76842"
+                              },
+                              "longitud": {
+                                  "type": "number",
+                                  "example": "2.25132"
+                              }
+                          }
+                      }
+                  }
+              }
+              },
+              "422": {          
+                "description": "validation error"
+              }
+            },
+            "parameters": [
+                {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "example": "aiguafreda"
+                                    },
+                                    "latitud": {
+                                        "type": "number",
+                                        "example": "41.76842"
+                                    },
+                                    "longitud": {
+                                        "type": "number",
+                                        "example": "2.25132"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+          },
+          "delete": {
+            "description": "destroy ciutats resource",
+            "responses": {
+              "200": {          
+                "description": "delete city.",
+                "content": {
+                  "application/json": {
+                      "schema": {
+                          "type": "object",
+                          "properties": {
+                              "nom": {
+                                  "type": "string",
+                                  "example": "aiguafreda"
+                              },
+                              "latitud": {
+                                  "type": "number",
+                                  "example": "41.76842"
+                              },
+                              "longitud": {
+                                  "type": "number",
+                                  "example": "2.25132"
+                              }
+                          }
+                      }
+                  }
+              }
               }
             }
           }
