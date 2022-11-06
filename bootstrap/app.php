@@ -78,7 +78,8 @@ $app->configure('app');
 ]); */
 
 $app->routeMiddleware([
-    'api.cors' => App\Http\Middleware\ApiCors::class
+    'api.cors' => App\Http\Middleware\ApiCors::class,
+    'api.auth' => App\Http\Middleware\ApiAuth::class
 ]);
 
 /*

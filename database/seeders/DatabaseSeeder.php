@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             AtributsSeeder::class,
             TemporadesSeeder::class,
             TipusCompeticioSeeder::class,
+            UsersSeeder::class,
         ]);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-$router->group(['middleware' => 'api.cors'], function () use ($router) {
+$router->group(['middleware' =>  ['api.cors', 'api.auth']], function () use ($router) {
 
     // ciutats
     $router->get('/ciutats', 'Api\CiutatApiController@index');
